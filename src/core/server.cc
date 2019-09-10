@@ -416,6 +416,10 @@ InferenceServer::SharedMemoryAddress(
 }
 
 Status
+InferenceServer::GetSharedMemoryStatus(
+    std::vector<SharedMemoryInfo*>* active_shm_regions)
+{
+  return shared_memory_manager_->GetSharedMemoryStatus(active_shm_regions);
 InferenceServer::ConfigureTrace(
     const std::string& trace_name, const std::string& hostname, uint32_t port)
 {

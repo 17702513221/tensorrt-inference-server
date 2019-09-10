@@ -105,6 +105,10 @@ class InferenceServer {
       const std::string& name, size_t offset, size_t byte_size,
       void** shm_mapped_addr);
 
+  // Get list of active shared memory regions.
+  Status GetSharedMemoryStatus(
+      std::vector<SharedMemoryInfo*>* active_shm_regions);\
+
   // Configure tracing. This does not enable tracing.
   Status ConfigureTrace(
       const std::string& trace_name, const std::string& hostname,
