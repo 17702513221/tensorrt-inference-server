@@ -432,10 +432,19 @@ ModelInferStats::IncrementComputeDuration(const uint64_t increment_value)
 }
 
 struct timespec
-ModelInferStats::StartRequestTimer(ScopedTimer* timer) const
+ModelInferStats::StartRequestTimer()
 {
-  timer->duration_ptr_ = &request_duration_ns_;
-  return timer->Start();
+  request_timer_ = std::make_shared<ScopedTimer>();
+  request_timer_->duration_ptr_ = &request_duration_ns_;
+  return request_timer_->Start();
+}
+
+void
+ModelInferStats::StopRequestTimer()
+{
+  if (request_timer_ != nullptr) {
+    request_timer_->Stop();
+  }
 }
 
 struct timespec

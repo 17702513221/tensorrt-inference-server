@@ -403,7 +403,7 @@ class TraceControlGrpcContextImpl : public TraceControlContext {
  public:
   TraceControlGrpcContextImpl(const std::string& url, bool verbose);
   Error Configure(const TraceControlContext::Options& options) override;
- Error SetLevel(uint32_t level, uint32_t rate) override;
+  Error SetLevel(uint32_t level, uint32_t rate) override;
 
  private:
   // GRPC end point.
@@ -443,7 +443,8 @@ TraceControlGrpcContextImpl::Configure(
   }
 }
 
- Error TraceControlGrpcContextImpl::SetLevel(uint32_t level, uint32_t rate)
+Error
+TraceControlGrpcContextImpl::SetLevel(uint32_t level, uint32_t rate)
 {
   TraceControlRequest request;
   TraceControlResponse response;

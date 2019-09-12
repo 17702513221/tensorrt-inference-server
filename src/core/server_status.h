@@ -156,10 +156,13 @@ class ModelInferStats {
   // Returns the current compute_duration in nanoseconds
   uint64_t GetComputeDuration() const { return compute_duration_ns_; }
 
-  // Get a ScopedTimer that measures entire inference request-response
-  // duration. The lifetime of 'timer' must not exceed the
-  // lifetime of 'this' object.
-  struct timespec StartRequestTimer(ScopedTimer* timer) const;
+  // Start the timer that measures entire inference request-response
+  // duration. Return the start timestamp.
+  struct timespec StartRequestTimer();
+
+  // Stop the timer that measures entire inference request-response
+  // duration.
+  void StopRequestTimer();
 
   // Get a ScopedTimer that measures wait time spent in backend Run(),
   // including queuing, scheduling. The lifetime of 'timer' must not
@@ -181,6 +184,8 @@ class ModelInferStats {
   bool failed_;
 
   uint32_t execution_count_;
+  std::shared_ptr<ScopedTimer> request_timer_;
+
   mutable uint64_t request_duration_ns_;
   mutable uint64_t queue_duration_ns_;
   mutable uint64_t compute_duration_ns_;
